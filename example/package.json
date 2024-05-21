@@ -10,11 +10,11 @@
     "build:ios": "cd ios && xcodebuild -workspace SendIntentsExample.xcworkspace -scheme SendIntentsExample -configuration Debug -sdk iphonesimulator CC=clang CPLUSPLUS=clang++ LD=clang LDPLUSPLUS=clang++ GCC_OPTIMIZATION_LEVEL=0 GCC_PRECOMPILE_PREFIX_HEADER=YES ASSETCATALOG_COMPILER_OPTIMIZATION=time DEBUG_INFORMATION_FORMAT=dwarf COMPILER_INDEX_STORE_ENABLE=NO"
   },
   "dependencies": {
-    "@react-native-community/cli-platform-android": "^13.6.6",
     "react": "18.2.0",
     "react-native": "0.74.1"
   },
   "devDependencies": {
+    "@react-native-community/cli-platform-android": "^13.6.6",
     "@babel/core": "^7.20.0",
     "@babel/preset-env": "^7.20.0",
     "@babel/runtime": "^7.20.0",

@@ -42,9 +42,9 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void checkPermission(String packageName, Promise promise) {
     int version = Build.VERSION.SDK_INT;
-    Log.d("MultiplierModule", "Build.Version.SDK_INT " + version);
+    Log.d("SendIntentsModule", "Build.Version.SDK_INT " + version);
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
-      Log.d("MultiplierModule", "Checking for permissions");
+      Log.d("SendIntentsModule", "Checking for permissions");
       if (!Environment.isExternalStorageManager()) {
         Log.d("MultiplierModule", "Trying to get permission of external storage manager");
         try {
@@ -65,12 +65,12 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
           promise.resolve(true);
         }
       } else {
-        Log.d("MultiplierModule", "isExternalStorageManager already approved");
+        Log.d("SendIntentsModule", "isExternalStorageManager already approved");
         promise.resolve(true);
       }
     } else {
       promise.resolve(false);
-      Log.d("MultiplierModule", "Build.Version.SDK_INT" + version);
+      Log.d("SendIntentsModule", "Build.Version.SDK_INT" + version);
     }
   }  
 }
