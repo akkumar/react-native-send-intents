@@ -1,6 +1,8 @@
 # react-native-send-intents
 
-Send Android Intents from React Native
+Send Android Intents from React Native.
+
+Specifically check for permission on ExternalStorage after Anrdoid 30.
 
 ## Installation
 
@@ -11,11 +13,24 @@ npm install react-native-send-intents
 ## Usage
 
 ```js
-import { multiply } from 'react-native-send-intents';
+import {
+  checkPermissionForExternalStorage,
+  requestPermissionForExternalStorage,
+} from 'react-native-send-intents';
+
 
 // ...
 
-const result = await multiply(3, 7);
+const permissionGranted = await checkPermissionForExternalStorage();
+// permissionGranted is boolean - true or false 
+
+if (!permissionGranted) {
+    // If not permissionGranted - request permission
+    const permissionRequestSucessful = await requestPermissionForExternalStorage('com.sendintentsexample');
+    // permissionRequestSuccessful is boolean - true or false
+    // depending on if it was successful to grant a permission
+
+}
 ```
 
 ## Contributing
