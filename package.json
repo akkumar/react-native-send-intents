@@ -82,8 +82,13 @@
     "react-native": "*"
   },
   "workspaces": {
-    "packages": ["example"],
-    "nohoist": ["**/react-native", "**/react-native/**"]
+    "packages": [
+      "example"
+    ],
+    "nohoist": [
+      "**/react-native",
+      "**/react-native/**"
+    ]
   },
   "packageManager": "yarn@3.6.1",
   "jest": {
