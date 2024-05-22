@@ -47,7 +47,7 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
       Log.d("SendIntentsModule", "Checking for permissions");
       if (!Environment.isExternalStorageManager()) {
-        Log.d("MultiplierModule", "Trying to get permission of external storage manager");
+        Log.d("SendIntentsModule", "Trying to get permission of external storage manager");
         promise.resolve(false);
       } else {
         Log.d("SendIntentsModule", "isExternalStorageManager already approved");
@@ -65,7 +65,7 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
       Log.d("SendIntentsModule", "Requesting permissions");
       if (!Environment.isExternalStorageManager()) {
-        Log.d("MultiplierModule", "Requesting permission of external storage manager");
+        Log.d("SendIntentsModule", "Requesting permission of external storage manager");
         try {
           Uri uri = Uri.parse("package:" +packageName);
           Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
