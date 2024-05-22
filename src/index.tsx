@@ -17,22 +17,18 @@ const SendIntents = NativeModules.SendIntents
       }
     );
 
-export function doCheckPermissionForExternalStorage(): Promise<boolean> {
+export function checkPermissionForExternalStorage(): Promise<boolean> {
   return SendIntents.checkPermissionForExternalStorage();
 }
 
-export function doRequestPermissionForExternalStorage(
+export function requestPermissionToManageAppAllFiles(
   packageName: string
 ): Promise<boolean> {
-  return SendIntents.requestPermissionForExternalStorage(packageName);
+  return SendIntents.requestPermissionToManageAppAllFiles(packageName);
 }
 
-export function checkPermissionForExternalStorage(): Promise<boolean> {
-  return doCheckPermissionForExternalStorage();
-}
-
-export function requestPermissionForExternalStorage(
+export function requestPermissionToManageAllFiles(
   packageName: string
 ): Promise<boolean> {
-  return doRequestPermissionForExternalStorage(packageName);
+  return SendIntents.requestPermissionToManageAllFiles(packageName);
 }

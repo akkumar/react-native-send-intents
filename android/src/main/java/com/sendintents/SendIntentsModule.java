@@ -63,7 +63,7 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
    * @param promise Promise of boolean implying if the permission has been granted or otherwise
    */
   @ReactMethod
-  public void requestPermissionForExternalStorage(String packageName, Promise promise) {
+  public void requestPermissionToManageAppAllFiles(String packageName, Promise promise) {
     int version = Build.VERSION.SDK_INT;
     Log.d("SendIntentsModule", "Build.Version.SDK_INT " + version);
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
@@ -71,21 +71,55 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
       if (!Environment.isExternalStorageManager()) {
         Log.d("SendIntentsModule", "Requesting permission of external storage manager");
         try {
-          Uri uri = Uri.parse("package:" +packageName);
+          Log.d("SendIntentModule", "About to open intent settings page");
+          Uri uri = Uri.parse("package:" + packageName);
           Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
-          intent.addCategory("android.intent.category.DEFAULT");
+          // intent.addCategory(Intent.CATEGORY_HOME);
+          intent.addCategory(Intent.CATEGORY_DEFAULT);
           intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
           intent.setData(Uri.parse(String.format("package:%s", packageName)));
           getReactApplicationContext().startActivity(intent);
           promise.resolve(true);
         } catch (Exception ex) {
-          Intent intent = new Intent();
-          intent.setAction(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+          Log.w("SendIntentModule", "Received exception during ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION", ex);
+          promise.reject(ex);
+        }
+      } else {
+        Log.d("SendIntentsModule", "isExternalStorageManager already approved");
+        promise.resolve(true);
+      }
+    } else {
+      promise.resolve(false);
+      Log.d("SendIntentsModule", "Build.Version.SDK_INT" + version);
+    }
+  }
+
+
+  /**
+   * request permission to use [ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION]
+   * @param packageName The packageName of the application requesting the permission to use external storage
+   * @param promise Promise of boolean implying if the permission has been granted or otherwise
+   */
+  @ReactMethod
+  public void requestPermissionToManageAllFiles(String packageName, Promise promise) {
+    int version = Build.VERSION.SDK_INT;
+    Log.d("SendIntentsModule", "Build.Version.SDK_INT " + version);
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
+      Log.d("SendIntentsModule", "Requesting permissions");
+      if (!Environment.isExternalStorageManager()) {
+        Log.d("SendIntentsModule", "Requesting permission of external storage manager");
+        try {
+          Log.d("SendIntentModule", "About to open intent settings page");
+          Uri uri = Uri.parse("package:" + packageName);
+          Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION, uri);
           intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
           getReactApplicationContext().startActivity(intent);
           promise.resolve(true);
+        } catch (Exception ex) {
+          Log.w("SendIntentModule", "Received exception during ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION", ex);
+          promise.reject(ex);
         }
       } else {
         Log.d("SendIntentsModule", "isExternalStorageManager already approved");
