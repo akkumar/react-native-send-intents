@@ -33,7 +33,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Permission Granted: {granted.toString()}</Text>
-      {!granted && <Button onPress={onPress} title="Grant Permission"></Button>}
+      {!granted && <Button onPress={onPress} title="Grant Permission" />}
     </View>
   );
 }
