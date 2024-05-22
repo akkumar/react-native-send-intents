@@ -16,6 +16,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
+import android.content.pm.PackageManager;
 
 @ReactModule(name = SendIntentsModule.NAME)
 public class SendIntentsModule extends ReactContextBaseJavaModule {
@@ -32,21 +33,39 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
   }
 
 
-  // Example method
-  // See https://reactnative.dev/docs/native-modules-android
   @ReactMethod
   public void multiply(double a, double b, Promise promise) {
     promise.resolve(a * b * 2);
-  }
+  }  
 
+  // Example method
+  // See https://reactnative.dev/docs/native-modules-android
   @ReactMethod
-  public void checkPermission(String packageName, Promise promise) {
+  public void checkPermission(Promise promise) {
     int version = Build.VERSION.SDK_INT;
     Log.d("SendIntentsModule", "Build.Version.SDK_INT " + version);
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
       Log.d("SendIntentsModule", "Checking for permissions");
       if (!Environment.isExternalStorageManager()) {
         Log.d("MultiplierModule", "Trying to get permission of external storage manager");
+        promise.resolve(false);
+      } else {
+        Log.d("SendIntentsModule", "isExternalStorageManager already approved");
+        promise.resolve(true);
+      }
+    } else {
+      promise.resolve(false);
+    }
+  }
+
+  @ReactMethod
+  public void requestPermission(String packageName, Promise promise) {
+    int version = Build.VERSION.SDK_INT;
+    Log.d("SendIntentsModule", "Build.Version.SDK_INT " + version);
+    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
+      Log.d("SendIntentsModule", "Requesting permissions");
+      if (!Environment.isExternalStorageManager()) {
+        Log.d("MultiplierModule", "Requesting permission of external storage manager");
         try {
           Uri uri = Uri.parse("package:" +packageName);
           Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uri);
