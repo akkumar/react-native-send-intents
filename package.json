@@ -33,7 +33,7 @@
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
     "prepare": "bob build",
     "release": "release-it",
-    "prettier:format": "prettier src example"
+    "prettier:format": "prettier --write src/index.tsx example/src/App.tsx"
   },
   "keywords": [
     "react-native",

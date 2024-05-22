@@ -3,7 +3,7 @@ import * as React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import {
   checkPermissionForExternalStorage,
-  requestPermissionForExternalStorage,
+  requestPermissionToManageAppAllFiles,
 } from 'react-native-send-intents';
 
 export default function App() {
@@ -21,7 +21,7 @@ export default function App() {
 
   const onPress = () => {
     console.log('onPress');
-    requestPermissionForExternalStorage('com.sendintentsexample')
+    requestPermissionToManageAppAllFiles('com.sendintentsexample')
       .then((value) => {
         console.log('granted permission', value);
       })
