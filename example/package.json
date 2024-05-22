@@ -11,8 +11,7 @@
   },
   "workspaces": {
     "nohoist": [
-      "*react-native*",
-      "*react-native*/**"
+      "**"
     ]
   },
   "dependencies": {
