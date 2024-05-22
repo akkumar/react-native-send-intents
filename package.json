@@ -85,7 +85,9 @@
     "packages": [
       "example"
     ],
-    "nohoist": ["**"]
+    "nohoist": [
+      "**"
+    ]
   },
   "packageManager": "yarn@3.6.1",
   "jest": {
