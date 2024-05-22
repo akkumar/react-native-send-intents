@@ -1,18 +1,39 @@
+import { useState } from 'react';
 import * as React from 'react';
-
-import { StyleSheet, View, Text } from 'react-native';
-import { multiply } from 'react-native-send-intents';
+import { StyleSheet, View, Text, Button } from 'react-native';
+import {
+  checkPermissionForExternalStorage,
+  requestPermissionForExternalStorage,
+} from 'react-native-send-intents';
 
 export default function App() {
-  const [result, setResult] = React.useState<number | undefined>();
+  const [granted, setGranted] = useState(false);
 
   React.useEffect(() => {
-    multiply(3, 7).then(setResult);
+    checkPermissionForExternalStorage()
+      .then((value) => {
+        setGranted(value);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
+
+  const onPress = () => {
+    console.log('onPress');
+    requestPermissionForExternalStorage('com.sendintentsexample')
+      .then((value) => {
+        console.log('granted permission', value);
+      })
+      .catch((err) => {
+        console.log('error granting permission', err);
+      });
+  };
 
   return (
     <View style={styles.container}>
-      <Text>Result: {result}</Text>
+      <Text>Permission Granted: {granted.toString()}</Text>
+      {!granted && <Button onPress={onPress} title="Grant Permission"></Button>}
     </View>
   );
 }

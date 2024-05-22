@@ -33,15 +33,14 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
   }
 
 
-  @ReactMethod
-  public void multiply(double a, double b, Promise promise) {
-    promise.resolve(a * b * 2);
-  }  
-
+  /**
+   * check if permission has been granted for external storage
+   * @param promise Promise of boolean indicating if the permission has been granted or not.
+   */
   // Example method
   // See https://reactnative.dev/docs/native-modules-android
   @ReactMethod
-  public void checkPermission(Promise promise) {
+  public void checkPermissionForExternalStorage(Promise promise) {
     int version = Build.VERSION.SDK_INT;
     Log.d("SendIntentsModule", "Build.Version.SDK_INT " + version);
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
@@ -58,8 +57,13 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
     }
   }
 
+  /**
+   * request permission to use external storage
+   * @param packageName The packageName of the application requesting the permission to use external storage
+   * @param promise Promise of boolean implying if the permission has been granted or otherwise
+   */
   @ReactMethod
-  public void requestPermission(String packageName, Promise promise) {
+  public void requestPermissionForExternalStorage(String packageName, Promise promise) {
     int version = Build.VERSION.SDK_INT;
     Log.d("SendIntentsModule", "Build.Version.SDK_INT " + version);
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {

@@ -17,6 +17,22 @@ const SendIntents = NativeModules.SendIntents
       }
     );
 
-export function multiply(a: number, b: number): Promise<number> {
-  return SendIntents.multiply(a, b);
+export function doCheckPermissionForExternalStorage(): Promise<boolean> {
+  return SendIntents.checkPermissionForExternalStorage();
+}
+
+export function doRequestPermissionForExternalStorage(
+  packageName: string
+): Promise<boolean> {
+  return SendIntents.requestPermissionForExternalStorage(packageName);
+}
+
+export function checkPermissionForExternalStorage(): Promise<boolean> {
+  return doCheckPermissionForExternalStorage();
+}
+
+export function requestPermissionForExternalStorage(
+  packageName: string
+): Promise<boolean> {
+  return doRequestPermissionForExternalStorage(packageName);
 }
