@@ -149,17 +149,12 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
     Log.d(LOG_NAME, "Build.Version.SDK_INT " + version);
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
       Log.d(LOG_NAME, "Requesting permissions");
-      if (!Environment.isExternalStorageManager()) {
-        Log.d(LOG_NAME, "About to open intent settings page for ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
-        String uriString = "package:" + packageName;
-        // (Intent.CATEGORY_HOME);
-        String[] categories = { Intent.CATEGORY_DEFAULT };
-        sendIntent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uriString, categories, uriString,
-            APP_ALL_FILES_ACCESS_REQUEST, promise);
-      } else {
-        Log.d(LOG_NAME, "isExternalStorageManager already approved");
-        promise.resolve("isExternalStorageManager already approved");
-      }
+      Log.d(LOG_NAME, "About to open intent settings page for ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION");
+      String uriString = "package:" + packageName;
+      // (Intent.CATEGORY_HOME);
+      String[] categories = { Intent.CATEGORY_DEFAULT };
+      sendIntent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION, uriString, categories, uriString,
+          APP_ALL_FILES_ACCESS_REQUEST, promise);
     } else {
       Log.d(LOG_NAME, "Build.Version.SDK_INT" + version);
       promise.resolve("Build.Version.SDK_INT" + version);
@@ -180,17 +175,13 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
     Log.d(LOG_NAME, "Build.Version.SDK_INT " + version);
     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.Q) {
       Log.d(LOG_NAME, "Requesting permissions");
-      if (!Environment.isExternalStorageManager()) {
-        Log.d(LOG_NAME, "About to open intent settings page for ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION");
-        String uriString = "package:" + packageName;
-        // (Intent.CATEGORY_HOME);
-        String[] categories = { Intent.CATEGORY_DEFAULT };
-        sendIntent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION, uriString, categories, uriString,
-            ALL_FILES_ACCESS_REQUEST, promise);
-      } else {
-        Log.d(LOG_NAME, "isExternalStorageManager already approved");
-        promise.resolve("isExternalStorageManager already approved");
-      }
+      Log.d(LOG_NAME, "About to open intent settings page for ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION");
+      String uriString = "package:" + packageName;
+      // (Intent.CATEGORY_HOME);
+      String[] categories = { Intent.CATEGORY_DEFAULT };
+      sendIntent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION, uriString, categories, uriString,
+          ALL_FILES_ACCESS_REQUEST, promise);
+
     } else {
       Log.d(LOG_NAME, "Build.Version.SDK_INT" + version);
       promise.resolve("Build.Version.SDK_INT" + version);
