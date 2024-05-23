@@ -1,8 +1,15 @@
 # react-native-send-intents
 
-Send Android Intents from React Native.
+* Send Android Intents from React Native code.
 
-Specifically check for permission on ExternalStorage after Anrdoid 30.
+* Specifically check for permission on ExternalStorage after Anrdoid 30.
+
+From Android 30, couple of intents and their flows are necessary to deal with 
+external storage. 
+
+** `ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION` and
+**  `ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION` settings
+
 
 ## Installation
 
@@ -26,7 +33,8 @@ const permissionGranted = await checkPermissionForExternalStorage();
 if (!permissionGranted) {
     // If not permissionGranted - request permission
     const permissionRequestSucessful = await requestPermissionToManageAppAllFiles('com.sendintentsexample');
-    // permissionRequestSuccessful is string as returned by the request to manage all app files
+    // permissionRequestSuccessful is string as returned by the request to 
+    // start the intent ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION
 }
 ```
 
@@ -36,7 +44,8 @@ Or , alternatively
 if (!permissionGranted) {
     // If not permissionGranted - request permission
     const permissionRequestSucessful = await requestPermissionToManageAllFiles('com.sendintentsexample');
-    // permissionRequestSuccessful is string as returned by the request to manage all app files
+    // permissionRequestSuccessful is string as returned by the request to 
+    // start the intent ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION
 }
 ```
 
