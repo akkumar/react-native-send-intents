@@ -15,23 +15,31 @@ npm install react-native-send-intents
 ```js
 import {
   checkPermissionForExternalStorage,
-  requestPermissionForExternalStorage,
+  requestPermissionToManageAppAllFiles,
+  requestPermissionToManageAllFiles
 } from 'react-native-send-intents';
 
-
 // ...
-
 const permissionGranted = await checkPermissionForExternalStorage();
 // permissionGranted is boolean - true or false 
 
 if (!permissionGranted) {
     // If not permissionGranted - request permission
-    const permissionRequestSucessful = await requestPermissionForExternalStorage('com.sendintentsexample');
-    // permissionRequestSuccessful is boolean - true or false
-    // depending on if it was successful to grant a permission
-
+    const permissionRequestSucessful = await requestPermissionToManageAppAllFiles('com.sendintentsexample');
+    // permissionRequestSuccessful is string as returned by the request to manage all app files
 }
 ```
+
+Or , alternatively 
+
+```js
+if (!permissionGranted) {
+    // If not permissionGranted - request permission
+    const permissionRequestSucessful = await requestPermissionToManageAllFiles('com.sendintentsexample');
+    // permissionRequestSuccessful is string as returned by the request to manage all app files
+}
+```
+
 
 ## Contributing
 
