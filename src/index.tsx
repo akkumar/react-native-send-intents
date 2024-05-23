@@ -23,12 +23,28 @@ export function checkPermissionForExternalStorage(): Promise<boolean> {
 
 export function requestPermissionToManageAppAllFiles(
   packageName: string
-): Promise<boolean> {
+): Promise<string> {
   return SendIntents.requestPermissionToManageAppAllFiles(packageName);
 }
 
 export function requestPermissionToManageAllFiles(
   packageName: string
-): Promise<boolean> {
+): Promise<string> {
   return SendIntents.requestPermissionToManageAllFiles(packageName);
+}
+
+export function sendIntent(
+  action: string,
+  uriString: string,
+  categories: string[],
+  data: string,
+  activityCode: number
+): Promise<string> {
+  return SendIntents.sendIntent(
+    action,
+    uriString,
+    categories,
+    data,
+    activityCode
+  );
 }

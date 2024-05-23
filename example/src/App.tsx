@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import * as React from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import {
@@ -9,7 +9,7 @@ import {
 export default function App() {
   const [granted, setGranted] = useState(false);
 
-  React.useEffect(() => {
+  const updatePermissionsStatus = () => {
     checkPermissionForExternalStorage()
       .then((value) => {
         setGranted(value);
@@ -17,6 +17,10 @@ export default function App() {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  useEffect(() => {
+    updatePermissionsStatus();
   }, []);
 
   const onPress = () => {
@@ -27,6 +31,7 @@ export default function App() {
       })
       .catch((err) => {
         console.log('error granting permission', err);
+        updatePermissionsStatus();
       });
   };
 
