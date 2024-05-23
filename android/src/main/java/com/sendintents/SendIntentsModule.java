@@ -8,6 +8,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.module.annotations.ReactModule;
+
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.bridge.BaseActivityEventListener;
 
@@ -26,16 +27,6 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
 
   private static final String LOG_NAME = NAME + "Module";
 
-  public SendIntentsModule(ReactApplicationContext reactContext) {
-    super(reactContext);
-  }
-
-  @Override
-  @NonNull
-  public String getName() {
-    return NAME;
-  }
-
   private Promise mActivityPromise;
 
   private static final int APP_ALL_FILES_ACCESS_REQUEST = 101;
@@ -53,14 +44,17 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
     public void onActivityResult(Activity activity, int requestCode, int resultCode, Intent intent) {
       if (requestCode == APP_ALL_FILES_ACCESS_REQUEST) {
         if (mActivityPromise != null) {
-          Log.w(LOG_NAME, "Activity result " + resultCode);          
           if (resultCode == Activity.RESULT_CANCELED) {
+            Log.d(LOG_NAME, "Activity  cancelled");
             mActivityPromise.reject(E_ACTIVITY_CANCELLED, "Activity cancelled");
           } else if (resultCode == Activity.RESULT_OK) {
+            Log.d(LOG_NAME, "Activity is ok");
             Uri uri = intent.getData();
             if (uri == null) {
+              Log.d(LOG_NAME, "Activity is ok. But uri =  null");
               mActivityPromise.reject(E_NO_ACTIVITY_RESULT_DATA_FOUND, "No activity result data found");
             } else {
+              Log.d(LOG_NAME, "Activity is ok. uri =  " + uri.toString());
               mActivityPromise.resolve(uri.toString());
             }
           }
@@ -71,6 +65,18 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
       }
     }
   };
+
+  public SendIntentsModule(ReactApplicationContext reactContext) {
+    super(reactContext);
+    reactContext.addActivityEventListener(mActivityEventListener);
+
+  }
+
+  @Override
+  @NonNull
+  public String getName() {
+    return NAME;
+  }
 
   /**
    * check if permission has been granted for external storage
@@ -180,7 +186,7 @@ public class SendIntentsModule extends ReactContextBaseJavaModule {
         // (Intent.CATEGORY_HOME);
         String[] categories = { Intent.CATEGORY_DEFAULT };
         sendIntent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION, uriString, categories, uriString,
-        ALL_FILES_ACCESS_REQUEST, promise);
+            ALL_FILES_ACCESS_REQUEST, promise);
       } else {
         Log.d(LOG_NAME, "isExternalStorageManager already approved");
         promise.resolve("isExternalStorageManager already approved");
